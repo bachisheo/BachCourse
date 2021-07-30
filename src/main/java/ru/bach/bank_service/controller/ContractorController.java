@@ -1,15 +1,13 @@
 package ru.bach.bank_service.controller;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import ru.bach.bank_api.model.WebContractor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.bach.bank_service.entity.Contractor;
-import ru.bach.bank_service.service.*;
+import ru.bach.bank_service.service.ContractorEditService;
+import ru.bach.bank_service.service.ContractorSearchService;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**

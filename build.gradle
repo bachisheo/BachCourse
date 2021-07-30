@@ -5,15 +5,13 @@ plugins {
     id 'war'
 }
 
-version = '0.0.1-SNAPSHOT'
-
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.2'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.2'
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.2'
@@ -26,17 +24,20 @@ dependencies {
     implementation 'jstl:jstl:1.2'
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
-
+    implementation group: 'net.rakugakibox.spring.boot', name: 'orika-spring-boot-starter', version: '1.9.0'
     implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3'
     implementation group: 'com.cedarsoftware', name: 'java-util', version: '1.9.2'
+
     testImplementation 'junit:junit:4.11'
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.5.2')
-
-    // testImplementation 'junit:junit:4.11'
-    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-   // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
     useJUnitPlatform()
+}
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
 }
