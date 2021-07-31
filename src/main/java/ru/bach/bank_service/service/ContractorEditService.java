@@ -1,7 +1,9 @@
 package ru.bach.bank_service.service;
 
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.dao.ContractorRepository;
 import ru.bach.bank_service.entity.Contractor;
 
@@ -16,19 +18,22 @@ public class ContractorEditService {
     @Autowired
     private ContractorRepository contractorRepository;
 
+    @Autowired
+    private MapperFacade mapper;
+
     /**
      * Сохранение записи о контрагенте
-     * @param contractor контрагент
+     *
+     * @param webContractor контрагент
      */
     @Transactional
-    public Contractor save(Contractor contractor) {
-        if (contractorRepository.existsByNominationIn(Collections.singletonList(contractor.getNomination()))) {
+    public Contractor save(WebContractor webContractor) {
+        if (contractorRepository.existsByNominationIn(Collections.singletonList(webContractor.getNomination()))) {
             //throw new DuplicateException("Contractor with nomination " + contractor.getNomination() + " already exists");
         }
+        Contractor contractor = mapper.map(webContractor, Contractor.class);
         return contractorRepository.save(contractor);
     }
-
-
 
 
 }

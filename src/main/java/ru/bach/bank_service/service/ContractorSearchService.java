@@ -1,6 +1,7 @@
 package ru.bach.bank_service.service;
 
 
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,8 @@ import java.util.List;
 public class ContractorSearchService {
     @Autowired
     private ContractorRepository contractorRepository;
-
-    //private MapperFacade facade = ContractorMapping.getOrikaMapperFacade();
+    @Autowired
+   private MapperFacade mapper;
     /**
      * Поиск контрагента по наименованию
      * @param nomination наименование
@@ -33,13 +34,19 @@ public class ContractorSearchService {
      * /@param accountNumber номер счета контрагента
      * @return контрагент
      */
-   // Contractor getContractorByBicAndAccountNumber(String bic, String accountNumber);
+  //  Contractor getContractorByBicAndAccountNumber(String bic, String accountNumber);
 
-//    public List<WebContractor> getAll(){
-//        List<Contractor> actors = contractorRepository.findAll();
-//        List<WebContractor> webActors = facade.mapAsList(actors, WebContractor.class);
-//        return webActors;
-//    }
-
+    public List<WebContractor> getAll(){
+        List<Contractor> actors = contractorRepository.findAll();
+        List<WebContractor> webActors = mapper.mapAsList(actors, WebContractor.class);
+        System.err.println(webActors);
+        return webActors;
+    }
+public WebContractor getOne(){
+        Contractor c = new Contractor();
+        c.setNomination("contr");
+        WebContractor wc = mapper.map(c, WebContractor.class);
+        return wc;
+}
 
 }
