@@ -1,0 +1,111 @@
+ .form-style-2{
+     align-self: center;
+    max-width: 500px;
+    padding: 20px 12px 10px 20px;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+ table {
+     border-collapse: separate;
+     border-spacing: 50px 0;
+ }
+
+ td {
+     padding: 10px 0;
+ }
+.form-style-2-heading {
+    align-self: center;;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 24px;
+    padding-bottom: 20px;
+}
+
+.form-style-2 label,
+.form-style-2 a {
+    display: block;
+    margin: 0px 0px 15px 0px;
+    font-size: 20px;
+    color: #000000;
+
+}
+
+.form-style-2 label > span {
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    padding-top: 8px;
+    padding-right: 5px;
+}
+
+.form-style-2 span.required {
+    color: red;
+}
+
+.form-style-2 .tel-number-field {
+    width: 40px;
+    text-align: center;
+}
+
+.form-style-2 input.input-field, .form-style-2 .select-field {
+    width: 48%;
+}
+
+.form-style-2 input.input-field,
+.form-style-2  input,
+.form-style-2 .tel-number-field,
+.form-style-2 .textarea-field,
+.form-style-2 .select-field {
+    box-sizing: border-box;
+    border: 1px solid #C2C2C2;
+    box-shadow: 1px 1px 4px #EBEBEB;
+    border-radius: 7px;
+    padding: 7px;
+    outline: none;
+}
+
+.form-style-2 .input-field:focus,
+.form-style-2 .tel-number-field:focus,
+.form-style-2 .textarea-field:focus,
+.form-style-2 .select-field:focus {
+    border: 1px solid #0C0;
+    border-radius: 7px;
+}
+
+.form-style-2 .textarea-field {
+    height: 100px;
+    width: 55%;
+}
+
+.form-style-2 button[type=submit],
+.form-style-2 button[type=button] {
+    border: none;
+    padding: 8px 15px 8px 15px;
+    background: #e5e5e5;
+    color: #000000;
+    box-shadow: 1px 1px 4px #DADADA;
+    border-radius: 10px;
+}
+ .form-style-2 button[type=submit]{
+     background: #FF8500;
+     color: #fff;
+ }
+
+.form-style-2 button[type=submit]:hover,
+.form-style-2 button[type=button]:hover {
+    background: #EA7B00;
+    color: #fff;
+}
+
+ /* The navigation menu links */
+ .nav a {
+     padding: 8px 8px 8px 32px;
+     display: block;
+     transition: 0.3s;
+     text-decoration: none;
+ }
+
+ /* When you mouse over the navigation links, change their color */
+ .nav a:hover {
+     color: #f1f1f1;
+ }
