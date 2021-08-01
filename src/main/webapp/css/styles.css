@@ -1,8 +1,10 @@
  .form-style-2{
-     align-self: center;
-    max-width: 500px;
+     display:inline-block;
     padding: 20px 12px 10px 20px;
     font: 13px Arial, Helvetica, sans-serif;
+}
+body{
+    text-align: center;
 }
  table {
      border-collapse: separate;
@@ -13,7 +15,7 @@
      padding: 10px 0;
  }
 .form-style-2-heading {
-    align-self: center;;
+    align-self: center;
     font-weight: bold;
     border-bottom: 2px solid #ddd;
     margin-bottom: 20px;

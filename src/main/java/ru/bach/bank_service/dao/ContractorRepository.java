@@ -36,4 +36,5 @@ public interface ContractorRepository extends JpaRepository<Contractor, Long> {
      */
     boolean existsByNominationIn (List<String> names);
 
+
 }

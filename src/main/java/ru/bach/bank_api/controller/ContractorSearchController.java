@@ -1,10 +1,10 @@
-package ru.bach.bank_service.controller;
+package ru.bach.bank_api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.bach.bank_api.model.WebContractor;
-import ru.bach.bank_service.service.ContractorSearchService;
+import ru.bach.bank_api.service.ContractorSearchService;
 
 import java.util.List;
 

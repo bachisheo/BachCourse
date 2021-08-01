@@ -6,16 +6,16 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="form-style-2" align="center" >
+<div class="form-style-2" align="center">
     <div class="form-style-2-heading">
-        <a href="home">
+        <a href="/home">
             <img src="/resources/home_logo.jpg" alt="МЕНЮ" width="50" height="50" align="left" />
         </a>
         ДОБАВИТЬ КОНТРАГЕНТА
 
     </div>
-<%--@elvariable id="webContractor" type="ru.bach.bank_api.model.WebContractor"--%>
-<form:form action="add" modelAttribute="webContractor">
+<%--@elvariable id="contractor" type="ru.bach.bank_api.model.WebContractor"--%>
+<form:form action="save" modelAttribute="contractor">
     <table>
         <tr>
             <td><form:label path="nomination">Наименование</form:label></td>
