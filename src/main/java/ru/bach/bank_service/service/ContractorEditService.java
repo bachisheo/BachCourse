@@ -32,23 +32,32 @@ public class ContractorEditService {
     @Transactional
     public Contractor save(WebContractor webContractor) {
         if (contractorRepository.existsByNominationIn(Collections.singletonList(webContractor.getNomination()))) {
-        //if (contractorRepository.existsByNominationIn(webContractor.getNomination())) {
             throw new DuplicateException("Contractor with nomination " + webContractor.getNomination() + " already exists");
         }
         Contractor contractor = mapper.map(webContractor, Contractor.class);
         return contractorRepository.save(contractor);
     }
-   @Transactional
+    @Transactional
+    public void delete(WebContractor webContractor) {
+        Contractor contractor = mapper.map(webContractor, Contractor.class);
+        if (!contractorRepository.existsById(contractor.getId())) {
+            throw new ContractorNotFoundException("Contractor with nomination " + contractor.getNomination() + "id"
+                    + contractor.getId()
+                    + " does not exists");
+        }
+        contractorRepository.deleteById(contractor.getId());
+    }
+
+    @Transactional
     public Contractor update(WebContractor webContractor) {
         Contractor contractor = mapper.map(webContractor, Contractor.class);
-        if (contractorRepository.existsById(contractor.getId()) == false) {
+        if (!contractorRepository.existsById(contractor.getId())) {
             throw new ContractorNotFoundException("Contractor with nomination " + contractor.getNomination() + "id"
                     + contractor.getId()
                     + " does not exists");
         }
         return contractorRepository.save(contractor);
     }
-
 
 
 }

@@ -1,12 +1,17 @@
 package ru.bach.bank_api.controller;
 
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.service.ContractorEditService;
 import ru.bach.bank_api.service.ContractorSearchService;
+
+import javax.validation.Valid;
+import java.util.UUID;
 
 /**
  * Контроллер для выполнения запросов на работу с бд
@@ -25,26 +30,40 @@ public class ContractorEditController {
      * @param webContractor объект для заполнения
      * @return модель для отображения страницы
      */
+    @ApiOperation(value = "Загрузить форму с добавлением агента",
+            notes = "Загружает форму для добавления")
+
     @GetMapping(path = "/add")
-    public ModelAndView showAddActorPage(@ModelAttribute("contractor") WebContractor webContractor) {
+    public ModelAndView showAddActorPage(@ModelAttribute("contractor")
+                                            WebContractor webContractor) {
         return new ModelAndView("add");
     }
+    @ApiOperation(value = "Сохранить данные из формы в базу данных",
+            notes = "This method creates a new phone contact")
 
     @PostMapping(value = "/save")
-    public ModelAndView save(@ModelAttribute("contractor") WebContractor webContractor) {
+    public ModelAndView save(@ModelAttribute("contractor")
+                                 @RequestBody @Valid WebContractor webContractor,
+                             BindingResult bindingResult) {
         ModelAndView mv = new ModelAndView();
-        contractorEditService.save(webContractor);
-        mv.setViewName("redirect:/home");
-        return mv;
-    }
+        if (bindingResult.hasErrors()) {
+            mv.addObject("contractor", webContractor);
+            mv.setViewName("add");
+            return mv;
+            }
+
+            contractorEditService.save(webContractor);
+            mv.setViewName("redirect:/home");
+            return mv;
+        }
+
 
     @GetMapping("/show/{nomination}")
     public ModelAndView showForm(@PathVariable("nomination")
-                                     @Parameter(description = "Наименование контрагента") String nomination) {
+                                 @Parameter(description = "Наименование контрагента") String nomination) {
         ModelAndView mv = new ModelAndView("show");
         WebContractor webContractor = contractorSearchService.findByNomination(nomination);
         mv.addObject("contractor", webContractor);
-
         return mv;
     }
 
@@ -60,10 +79,19 @@ public class ContractorEditController {
     public ModelAndView update(@ModelAttribute("contractor") WebContractor webContractor) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("redirect:/contractors");
+        contractorEditService.update(webContractor);
+        mav.addObject("statusMessage", "Contractor with nomination " +
+                webContractor.getNomination() + "was updated");
+        return mav;
+    }
+    @RequestMapping ("/delete/{nomination}")
+    public ModelAndView delete(@PathVariable(name = "nomination") String nomination) {
+        WebContractor webContractor = contractorSearchService.findByNomination(nomination);
+        ModelAndView mav = new ModelAndView("redirect:/contractors");
 
-       contractorEditService.update(webContractor);
-//        mav.addObject("statusMessage", "Contractor with nomination " +
-//                webContractor.getNomination() + "was updated");
+        contractorEditService.delete(webContractor);
+        mav.addObject("statusMessage", "Contractor with nomination " +
+                webContractor.getNomination() + "was deleted");
         return mav;
     }
 }

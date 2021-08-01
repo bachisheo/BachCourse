@@ -26,9 +26,9 @@
     </div>
 <div id="nav" class="nav">
     <a href="/contractors">Список контрагентов</a>
-    <a href="/search">Поиск контрагентов</a>
+    <a href="/searchByNomination">Поиск контрагентов по наименованию</a>
+    <a href="/searchByBic">Поиск контрагентов по БИК и номеру счета</a>
     <a href="/add">Добавить контрагента</a>
-    <a href="/delete">Удалить контрагента</a>
 </div>
 </div>
 

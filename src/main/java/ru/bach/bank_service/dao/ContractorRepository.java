@@ -24,17 +24,17 @@ public interface ContractorRepository extends JpaRepository<Contractor, Long> {
     Contractor findByAccountNumberAndBic (String bic, String accountNumber);
 
     /**
-     * Удаление контрагента по наименованию
-     * @param nomination наименование контрагента
+     * Удаление контрагента по ID
+     * @param id наименование контрагента
      */
-    void deleteByNomination (String nomination);
+    void deleteById(long id);
 
-    void deleteByAccountNumberAndBic(String bic, String accountNumber);
 
     /**
      * Проверка наличия контрагентов с наименованием из списка
      */
     boolean existsByNominationIn (List<String> names);
+
 
 
 }

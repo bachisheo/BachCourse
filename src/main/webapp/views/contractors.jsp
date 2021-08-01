@@ -13,6 +13,7 @@
             <img src="/resources/home_logo.jpg" alt="МЕНЮ" width="50" height="50" align="left" />
         </a>
            СПИСОК КОНТРАГЕНТОВ
+
     </div>
     <table>
         <tr>
@@ -27,13 +28,12 @@
         <c:forEach items="${contractorsFromServer}" var="contractor">
             <tr>
                 <td>${contractor.getId()}</td>
-                <td>${contractor.getNomination()}</td>
+                <td><a href='/show/${contractor.getNomination()}'>${contractor.getNomination()}</a></td>
                 <td>${contractor.getInn()}</td>
                 <td>${contractor.getKpp()}</td>
                 <td>${contractor.getBic()}</td>
                 <td>${contractor.getAccountNumber()}</td>
                 <td>
-
                     <a href='/edit/${contractor.getNomination()}'>Изменить</a>
                     <a href='/delete/${contractor.getNomination()}'>Удалить</a>
                 </td>
