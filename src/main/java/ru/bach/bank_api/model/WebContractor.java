@@ -30,8 +30,8 @@ public class WebContractor {
             name = "inn",
             dataType = "String",
             example = "123")
-    @Size(max = 12, min = 10, message = "ИНН содержит 10 или 12 символов")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "ИНН содержит только цифры")
+
     @InnConstraint
     private String inn;
 
@@ -40,7 +40,7 @@ public class WebContractor {
             name = "kpp",
             dataType = "String",
             example = "123")
-    @Size(max = 9, min = 9, message = "КПП состоит из 9 цифр")
+    @Size(max = 9, min = 9, message = "КПП содержит 9 символов")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "КПП содержит только цифры")
     private String kpp;
 
@@ -49,7 +49,6 @@ public class WebContractor {
             name = "bic",
             dataType = "String",
             example = "123")
-    @Size(max = 9, min = 9, message = "БИК банка состоит из 9 цифр")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "БИК банка содержит только цифры")
     private String bic;
 
@@ -59,8 +58,9 @@ public class WebContractor {
             name = "accountNumber",
             dataType = "String",
             example = "123")
-    @Size(max = 20, min = 20, message = "Номер счета состоит из 20 цифр")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "Номер счета содержит только цифры")
+    @Size(max = 20, min = 20, message = "Номер счета состоит из 20 символов")
+
     private String accountNumber;
 
     @ApiModelProperty(

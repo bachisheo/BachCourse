@@ -35,27 +35,26 @@ public class ContractorEditController {
 
     @GetMapping(path = "/add")
     public ModelAndView showAddActorPage(@ModelAttribute("contractor")
-                                            WebContractor webContractor) {
+                                                 WebContractor webContractor) {
         return new ModelAndView("add");
     }
+
     @ApiOperation(value = "Сохранить данные из формы в базу данных",
             notes = "This method creates a new phone contact")
-
     @PostMapping(value = "/save")
     public ModelAndView save(@ModelAttribute("contractor")
-                                 @RequestBody @Valid WebContractor webContractor,
+                             @RequestBody @Valid WebContractor webContractor,
                              BindingResult bindingResult) {
         ModelAndView mv = new ModelAndView();
         if (bindingResult.hasErrors()) {
             mv.addObject("contractor", webContractor);
             mv.setViewName("add");
             return mv;
-            }
-
-            contractorEditService.save(webContractor);
-            mv.setViewName("redirect:/home");
-            return mv;
         }
+        contractorEditService.save(webContractor);
+        mv.setViewName("redirect:/home");
+        return mv;
+    }
 
 
     @GetMapping("/show/{nomination}")
@@ -84,7 +83,8 @@ public class ContractorEditController {
                 webContractor.getNomination() + "was updated");
         return mav;
     }
-    @RequestMapping ("/delete/{nomination}")
+
+    @RequestMapping("/delete/{nomination}")
     public ModelAndView delete(@PathVariable(name = "nomination") String nomination) {
         WebContractor webContractor = contractorSearchService.findByNomination(nomination);
         ModelAndView mav = new ModelAndView("redirect:/contractors");

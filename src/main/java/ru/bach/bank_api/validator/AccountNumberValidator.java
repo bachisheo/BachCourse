@@ -14,15 +14,26 @@ import javax.validation.ConstraintValidatorContext;
 public class AccountNumberValidator implements
         ConstraintValidator<AccountNumberConstraint, WebContractor> {
 
-    //TODO: 02.08.2021 проверить нужна ли здесь проверка на длину
     @Override
     public boolean isValid(WebContractor actor, ConstraintValidatorContext context) {
         String bic = actor.getBic();
-        String number = actor.getAccountNumber();
+        String accountNumber = actor.getAccountNumber();
+        if (bic.length() != 9) {
+            context.buildConstraintViolationWithTemplate("БИК должен состоять из 9 цифр")
+                    .addPropertyNode("bic")
+                    .addConstraintViolation();
+            return false;
+        }
+        if (accountNumber.length() != 20) {
+            context.buildConstraintViolationWithTemplate("Номер счета должен состоять из 20 цифр")
+                    .addPropertyNode("accountNumber")
+                    .addConstraintViolation();
+            return false;
+        }
 
         if (bic.charAt(6) == '0' && bic.charAt(7) == '0')
-            return checkRKC(number, bic, context);
-        return checkCO(number, bic, context);
+            return checkRKC(accountNumber, bic, context);
+        return checkCO(accountNumber, bic, context);
     }
 
     /**
@@ -36,9 +47,8 @@ public class AccountNumberValidator implements
         String checkNumber = bic.substring(6) + number;
         if (checkSum(checkNumber) == 0)
             return true;
-        //context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate("Счет отсутствует в данном Банке (БИК)")
-                .addPropertyNode("accountNumber")
+        context.buildConstraintViolationWithTemplate("Счет отсутствует в данном Банке")
+                .addPropertyNode("bic")
                 .addConstraintViolation();
         return false;
     }
@@ -54,9 +64,8 @@ public class AccountNumberValidator implements
         String contrDig = '0' + bic.substring(4, 6) + number;
         if (checkSum(contrDig) == 0)
             return true;
-        //context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate("Счет отсутствует в данном РКЦ (БИК)")
-                .addPropertyNode("accountNumber")
+        context.buildConstraintViolationWithTemplate("Счет отсутствует в данном РКЦ")
+                .addPropertyNode("bic")
                 .addConstraintViolation();
         return false;
     }
@@ -73,4 +82,5 @@ public class AccountNumberValidator implements
             checkSum += (long) Character.getNumericValue(aNumber.charAt(i)) * wt[i % wt.length];
         return checkSum % 10;
     }
+
 }

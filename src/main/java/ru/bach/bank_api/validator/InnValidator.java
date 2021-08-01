@@ -33,14 +33,7 @@ public class InnValidator implements
                     .addConstraintViolation();
             return false;
         }
-        if (!checkOrgInn(value) || checkPhysInn(value)) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Ошибочная контрольная сумма")
-                    .addBeanNode()
-                    .addConstraintViolation();
-            return false;
-        }
-        return true;
+        return checkOrgInn(value) || checkPhysInn(value);
     }
 
     /**
