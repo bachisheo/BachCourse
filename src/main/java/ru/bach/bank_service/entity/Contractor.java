@@ -55,4 +55,19 @@ public class Contractor {
      */
     @Column(name = "nomination", length = 20)
     private String nomination;
+
+    /**
+     * Метод, обновляющий сведения о контрагенте:
+     * из объекта-источника копируются все поля, кроме
+     * идентификатора
+     * @param src объект-источник
+     */
+    public void updateFields(Contractor src){
+        this.nomination = src.getNomination();
+        this.inn = src.getInn();
+        this.kpp = src.getKpp();
+        this.bic = src.getBic();
+        this.accountNumber = src.getAccountNumber();
+    }
+
 }

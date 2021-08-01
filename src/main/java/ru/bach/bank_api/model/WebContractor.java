@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @ApiModel(value = "Канальная модель контрагента")
 public class WebContractor {
-    private long webId;
+    private long id;
     private String inn;
     private String kpp;
     private String bic;

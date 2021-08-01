@@ -7,34 +7,39 @@
 </head>
 <body>
 
-<div class="form-style-2">
+<div class="form-style-2" align="center">
     <div class="form-style-2-heading">
-        <a href="home">
+        <a href="/home">
             <img src="/resources/home_logo.jpg" alt="МЕНЮ" width="50" height="50" align="left" />
         </a>
            СПИСОК КОНТРАГЕНТОВ
-
     </div>
     <table>
         <tr>
+            <th>ID</th>
             <th>Наименование</th>
             <th>ИНН</th>
             <th>КПП</th>
             <th>БИК банка</th>
             <th>Номер счета</th>
+            <th>Action</th>
         </tr>
         <c:forEach items="${contractorsFromServer}" var="contractor">
             <tr>
+                <td>${contractor.getId()}</td>
                 <td>${contractor.getNomination()}</td>
                 <td>${contractor.getInn()}</td>
                 <td>${contractor.getKpp()}</td>
                 <td>${contractor.getBic()}</td>
                 <td>${contractor.getAccountNumber()}</td>
+                <td>
+
+                    <a href='/edit/${contractor.getNomination()}'>Изменить</a>
+                    <a href='/delete/${contractor.getNomination()}'>Удалить</a>
+                </td>
             </tr>
         </c:forEach>
     </table>
 </div>
-
-
 </body>
 </html>

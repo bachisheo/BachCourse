@@ -14,9 +14,9 @@
 </head>
 <body>
 
-<div class="form-style-2">
+<div class="form-style-2" align="center">
     <div class="form-style-2-heading">
-        <a href="home">
+        <a href="/home">
             <img src="/resources/home_logo.jpg" alt="МЕНЮ" width="50" height="50" align="left" />
         </a>
         ${statusMessage}

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.dao.ContractorRepository;
 import ru.bach.bank_service.entity.Contractor;
+import ru.bach.bank_service.exception.ContractorNotFoundException;
+import ru.bach.bank_service.exception.DuplicateException;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
@@ -14,6 +16,7 @@ import java.util.Collections;
  * Сервис контрагента, отвечающий за операции удаления/добавления/изменения.
  */
 @Service
+@Transactional
 public class ContractorEditService {
     @Autowired
     private ContractorRepository contractorRepository;
@@ -29,11 +32,23 @@ public class ContractorEditService {
     @Transactional
     public Contractor save(WebContractor webContractor) {
         if (contractorRepository.existsByNominationIn(Collections.singletonList(webContractor.getNomination()))) {
-            //throw new DuplicateException("Contractor with nomination " + contractor.getNomination() + " already exists");
+        //if (contractorRepository.existsByNominationIn(webContractor.getNomination())) {
+            throw new DuplicateException("Contractor with nomination " + webContractor.getNomination() + " already exists");
         }
         Contractor contractor = mapper.map(webContractor, Contractor.class);
         return contractorRepository.save(contractor);
     }
+   @Transactional
+    public Contractor update(WebContractor webContractor) {
+        Contractor contractor = mapper.map(webContractor, Contractor.class);
+        if (contractorRepository.existsById(contractor.getId()) == false) {
+            throw new ContractorNotFoundException("Contractor with nomination " + contractor.getNomination() + "id"
+                    + contractor.getId()
+                    + " does not exists");
+        }
+        return contractorRepository.save(contractor);
+    }
+
 
 
 }

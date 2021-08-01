@@ -1,4 +1,4 @@
-package ru.bach.bank_service.service;
+package ru.bach.bank_api.service;
 
 
 import ma.glasnost.orika.MapperFacade;
@@ -9,13 +9,16 @@ import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.dao.ContractorRepository;
 import ru.bach.bank_service.entity.Contractor;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Сервис контрагента, отвечающий за операции поиска по наименованию или сочетанию
  * БИК/номер счета.
  */
 @Service
+@Transactional
 public class ContractorSearchService {
     @Autowired
     private ContractorRepository contractorRepository;
@@ -47,6 +50,11 @@ public WebContractor getOne(){
         c.setNomination("contr");
         WebContractor wc = mapper.map(c, WebContractor.class);
         return wc;
+}
+public WebContractor findByNomination(String nomination){
+        Contractor contractor = contractorRepository.findByNomination(nomination);
+        WebContractor webContractor = mapper.map(contractor, WebContractor.class);
+        return webContractor;
 }
 
 }
