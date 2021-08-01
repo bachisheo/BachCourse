@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import ru.bach.bank_api.constraint.AccountNumberConstraint;
 import ru.bach.bank_api.constraint.InnConstraint;
+import ru.bach.bank_api.constraint.NominationConstraint;
 
 import javax.validation.constraints.*;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @Builder
 @AccountNumberConstraint
+@NominationConstraint
 @ApiModel(value = "Канальная модель контрагента")
 public class WebContractor {
     @ApiModelProperty(
@@ -28,7 +30,7 @@ public class WebContractor {
             name = "inn",
             dataType = "String",
             example = "123")
-    @Size(max = 12, min=10, message = "ИНН содержит 10 или 12 символов")
+    @Size(max = 12, min = 10, message = "ИНН содержит 10 или 12 символов")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "ИНН содержит только цифры")
     @InnConstraint
     private String inn;
@@ -38,7 +40,7 @@ public class WebContractor {
             name = "kpp",
             dataType = "String",
             example = "123")
-    @Size(max = 9, min=9, message = "КПП состоит из 9 цифр")
+    @Size(max = 9, min = 9, message = "КПП состоит из 9 цифр")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "КПП содержит только цифры")
     private String kpp;
 
@@ -47,7 +49,7 @@ public class WebContractor {
             name = "bic",
             dataType = "String",
             example = "123")
-    @Size(max = 9, min=9, message = "БИК банка состоит из 9 цифр")
+    @Size(max = 9, min = 9, message = "БИК банка состоит из 9 цифр")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "БИК банка содержит только цифры")
     private String bic;
 
@@ -57,7 +59,7 @@ public class WebContractor {
             name = "accountNumber",
             dataType = "String",
             example = "123")
-    @Size(max = 20, min=20, message = "Номер счета состоит из 20 цифр")
+    @Size(max = 20, min = 20, message = "Номер счета состоит из 20 цифр")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "Номер счета содержит только цифры")
     private String accountNumber;
 
@@ -66,6 +68,6 @@ public class WebContractor {
             name = "nomination",
             dataType = "String",
             example = "123")
-    @Size(max = 20, min=1, message = "Наименование содержит от 1 до 20 символов")
+    @Size(max = 20, min = 1, message = "Наименование содержит от 1 до 20 символов")
     private String nomination;
 }

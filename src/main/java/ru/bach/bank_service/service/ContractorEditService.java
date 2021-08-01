@@ -25,18 +25,30 @@ public class ContractorEditService {
     private MapperFacade mapper;
 
     /**
+     * Проверка существования записи в базе данных по наименованию
+     *
+     * @param nomination наименование
+     * @return true если объект существует
+     */
+    public boolean existsByNomination(String nomination){
+        return contractorRepository.existsByNominationIn(Collections.singletonList(nomination));
+    }
+    /**
      * Сохранение записи о контрагенте
      *
      * @param webContractor контрагент
      */
     @Transactional
     public Contractor save(WebContractor webContractor) {
-        if (contractorRepository.existsByNominationIn(Collections.singletonList(webContractor.getNomination()))) {
+        if (existsByNomination(webContractor.getNomination())){
             throw new DuplicateException("Contractor with nomination " + webContractor.getNomination() + " already exists");
         }
         Contractor contractor = mapper.map(webContractor, Contractor.class);
         return contractorRepository.save(contractor);
     }
+
+
+
     @Transactional
     public void delete(WebContractor webContractor) {
         Contractor contractor = mapper.map(webContractor, Contractor.class);

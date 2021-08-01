@@ -8,7 +8,8 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Класс, обеспечивающий выполнение правил валидации поля ИНН
+ * Класс, обеспечивающий выполнение правил валидации номера
+ * счета и БИКа
  */
 public class AccountNumberValidator implements
         ConstraintValidator<AccountNumberConstraint, WebContractor> {
@@ -20,7 +21,7 @@ public class AccountNumberValidator implements
         String number = actor.getAccountNumber();
 
         if (bic.charAt(6) == '0' && bic.charAt(7) == '0')
-            return checkRKC(number, context);
+            return checkRKC(number, bic, context);
         return checkCO(number, bic, context);
     }
 
@@ -49,7 +50,7 @@ public class AccountNumberValidator implements
      * @param context контекстные данные и операции
      * @return true, если БИК и номер счета соответствуют друг другу
      */
-    boolean checkRKC(String number, ConstraintValidatorContext context) {
+    boolean checkRKC(String number, String bic, ConstraintValidatorContext context) {
         String contrDig = '0' + bic.substring(4, 6) + number;
         if (checkSum(contrDig) == 0)
             return true;

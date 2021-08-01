@@ -1,4 +1,5 @@
 package ru.bach.bank_api.constraint;
+
 import ru.bach.bank_api.validator.NominationValidator;
 
 import javax.validation.Constraint;
@@ -10,10 +11,12 @@ import java.lang.annotation.*;
  */
 @Documented
 @Constraint(validatedBy = NominationValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NominationConstraint {
     String message() default "Недопустимое наименование";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }
