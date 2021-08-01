@@ -28,17 +28,17 @@
         </tr>
         <tr>
             <td><form:label path="kpp">КПП</form:label></td>
-            <td><form:input type="text" id="kpp" path="kpp" maxlength="12"/></td>
+            <td><form:input type="text" id="kpp" path="kpp" maxlength="9"/></td>
             <td><form:errors path="kpp" cssClass="error"/></td>
         </tr>
         <tr>
             <td><form:label path="bic">БИК банка</form:label></td>
-            <td><form:input type="text" id="bic" path="bic" maxlength="12"/></td>
+            <td><form:input type="text" id="bic" path="bic" maxlength="9"/></td>
             <td><form:errors path="bic" cssClass="error"/></td
         </tr>
         <tr>
             <td><form:label path="accountNumber">Номер счета</form:label></td>
-            <td><form:input type="text" id="accountNumber" path="accountNumber" maxlength="12"/></td>
+            <td><form:input type="text" id="accountNumber" path="accountNumber" maxlength="20"/></td>
             <td><form:errors path="accountNumber" cssClass="error"/></td
         </tr>
     </table>

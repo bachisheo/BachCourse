@@ -1,19 +1,19 @@
 package ru.bach.bank_api.constraint;
-import ru.bach.bank_api.validator.InnValidator;
+import ru.bach.bank_api.validator.NominationValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * Определение класса, проверяющего поле ИНН
+ * Определение класса, проверяющего наименование
  */
 @Documented
-@Constraint(validatedBy = InnValidator.class)
+@Constraint(validatedBy = NominationValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InnConstraint {
-    String message() default "Недопустимый ИНН";
+public @interface NominationConstraint {
+    String message() default "Недопустимое наименование";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

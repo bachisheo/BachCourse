@@ -3,6 +3,8 @@ package ru.bach.bank_api.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import ru.bach.bank_api.constraint.AccountNumberConstraint;
+import ru.bach.bank_api.constraint.InnConstraint;
 
 import javax.validation.constraints.*;
 
@@ -11,6 +13,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@AccountNumberConstraint
 @ApiModel(value = "Канальная модель контрагента")
 public class WebContractor {
     @ApiModelProperty(
@@ -27,6 +30,7 @@ public class WebContractor {
             example = "123")
     @Size(max = 12, min=10, message = "ИНН содержит 10 или 12 символов")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "ИНН содержит только цифры")
+    @InnConstraint
     private String inn;
 
     @ApiModelProperty(
