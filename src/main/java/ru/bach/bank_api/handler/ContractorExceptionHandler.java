@@ -14,7 +14,8 @@ public class ContractorExceptionHandler {
 
         @ExceptionHandler(value = ContractorNotFoundException.class)
         public ResponseEntity<Object> resourceNotFound(ContractorNotFoundException exception) {
-            return new ResponseEntity<>("PhoneBook not found: " + exception.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Contractor: " + exception.getMessage(), HttpStatus.NOT_FOUND);
         }
+
 
     }

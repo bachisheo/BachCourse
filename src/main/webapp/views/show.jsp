@@ -13,7 +13,7 @@
         <a href="/home">
             <img src="/resources/home_logo.jpg" alt="МЕНЮ" width="50" height="50" align="left" />
         </a>
-        ${statusMessage}
+       СВЕДЕНИЯ О КОНТРАГЕНТЕ
     </div>
 
     <%--@elvariable id="contractor" type="ru.bach.bank_api.model.WebContractor"--%>

@@ -34,7 +34,7 @@
                 <td>${contractor.getBic()}</td>
                 <td>${contractor.getAccountNumber()}</td>
                 <td>
-                    <a href='/edit/${contractor.getNomination()}'>Изменить</a>
+                    <a href='/update/${contractor.getNomination()}'>Изменить</a>
                     <a href='/delete/${contractor.getNomination()}'>Удалить</a>
                 </td>
             </tr>

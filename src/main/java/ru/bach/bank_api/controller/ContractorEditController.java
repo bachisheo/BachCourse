@@ -29,17 +29,14 @@ public class ContractorEditController {
      * @param webContractor объект для заполнения
      * @return модель для отображения страницы
      */
-    @ApiOperation(value = "Загрузить форму с добавлением агента",
-            notes = "Загружает форму для добавления")
-
+    @ApiOperation(value = "Загрузить форму с добавлением агента")
     @GetMapping(path = "/add")
     public ModelAndView showAddActorPage(@ModelAttribute("contractor")
                                                  WebContractor webContractor) {
         return new ModelAndView("add");
     }
 
-    @ApiOperation(value = "Сохранить данные из формы в базу данных",
-            notes = "Сохраняет данные из формы в базу данных")
+    @ApiOperation(value = "Сохранить данные из формы в базу данных")
     @PostMapping(value = "/save")
     public ModelAndView save(@ModelAttribute("contractor")
                              @RequestBody @Valid WebContractor webContractor,
@@ -64,21 +61,26 @@ public class ContractorEditController {
     @GetMapping("/show/{nomination}")
     public ModelAndView showForm(@PathVariable("nomination")
                                  @Parameter(description = "Наименование контрагента") String nomination) {
-        ModelAndView mv = new ModelAndView("show");
+        ModelAndView mav = new ModelAndView("show");
         WebContractor webContractor = contractorSearchService.findByNomination(nomination);
-        mv.addObject("contractor", webContractor);
-        return mv;
+        if(webContractor == null)
+            return new ModelAndView("redirect:/error");
+        mav.addObject("contractor", webContractor);
+        return mav;
     }
     /**
      * GET-запрос загрузки страницы с формой редактирования контрагента
      * @param nomination наименование
      * @return ModelAndView
      */
-    @ApiOperation(value = "Перенаправить на страницу с формой для изменения")
-    @GetMapping("/edit/{nomination}")
-    public ModelAndView showEditActorPage(@PathVariable(name = "nomination") String nomination) {
-        ModelAndView mav = new ModelAndView("update");
+    @ApiOperation(value = "Перенаправить на страницу с формой для редактирования")
+    @GetMapping("/update/{nomination}")
+    public ModelAndView showEditActorPage(@PathVariable(name = "nomination")
+                         @Parameter(description = "Наименование контрагента") String nomination) {
         WebContractor webContractor = contractorSearchService.findByNomination(nomination);
+        if(webContractor == null)
+            return new ModelAndView("redirect:/error");
+        ModelAndView mav = new ModelAndView("/update");
         mav.addObject("contractor", webContractor);
         return mav;
     }
@@ -88,16 +90,27 @@ public class ContractorEditController {
      * @param webContractor форма с изменениями
      * @return
      */
+    @ApiOperation(value = "Сохранить изменения контрагента")
     @PostMapping(value = "/update")
-    public ModelAndView update(@ModelAttribute("contractor") WebContractor webContractor) {
+    public ModelAndView update(@ModelAttribute("contractor")
+                                   @RequestBody @Valid WebContractor webContractor,
+                               BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/contractors");
+        if(bindingResult.hasErrors()){
+            mav.addObject("contractor", webContractor);
+            mav.setViewName("/update");
+            return mav;
+        }
         contractorEditService.update(webContractor);
-        mav.addObject("statusMessage", "Contractor with nomination " +
-                webContractor.getNomination() + "was updated");
+        mav.setViewName("redirect:/contractors");
         return mav;
     }
 
+    /**
+     *
+     * @param nomination
+     * @return
+     */
     @RequestMapping("/delete/{nomination}")
     public ModelAndView delete(@PathVariable(name = "nomination") String nomination) {
         WebContractor webContractor = contractorSearchService.findByNomination(nomination);
