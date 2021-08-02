@@ -52,33 +52,20 @@ public class ContractorEditController {
         return mv;
     }
 
-    /**
-     * GET-запрос загрузки страницы просмотра контрагента
-     * @param nomination наименование
-     * @return ModelAndView
-     */
-    @ApiOperation(value = "Перенаправить на страницу просмотра контрагента")
-    @GetMapping("/show/{nomination}")
-    public ModelAndView showForm(@PathVariable("nomination")
-                                 @Parameter(description = "Наименование контрагента") String nomination) {
-        ModelAndView mav = new ModelAndView("show");
-        WebContractor webContractor = contractorSearchService.findByNomination(nomination);
-        if(webContractor == null)
-            return new ModelAndView("redirect:/error");
-        mav.addObject("contractor", webContractor);
-        return mav;
-    }
+
+
     /**
      * GET-запрос загрузки страницы с формой редактирования контрагента
+     *
      * @param nomination наименование
      * @return ModelAndView
      */
     @ApiOperation(value = "Перенаправить на страницу с формой для редактирования")
     @GetMapping("/update/{nomination}")
     public ModelAndView showEditActorPage(@PathVariable(name = "nomination")
-                         @Parameter(description = "Наименование контрагента") String nomination) {
+                                          @Parameter(description = "Наименование контрагента") String nomination) {
         WebContractor webContractor = contractorSearchService.findByNomination(nomination);
-        if(webContractor == null)
+        if (webContractor == null)
             return new ModelAndView("redirect:/error");
         ModelAndView mav = new ModelAndView("/update");
         mav.addObject("contractor", webContractor);
@@ -87,16 +74,17 @@ public class ContractorEditController {
 
     /**
      * Пост запрос на сохранение изменений в записи о контрагенте
+     *
      * @param webContractor форма с изменениями
      * @return
      */
     @ApiOperation(value = "Сохранить изменения контрагента")
     @PostMapping(value = "/update")
     public ModelAndView update(@ModelAttribute("contractor")
-                                   @RequestBody @Valid WebContractor webContractor,
+                               @RequestBody @Valid WebContractor webContractor,
                                BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView();
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             mav.addObject("contractor", webContractor);
             mav.setViewName("/update");
             return mav;
@@ -107,7 +95,6 @@ public class ContractorEditController {
     }
 
     /**
-     *
      * @param nomination
      * @return
      */

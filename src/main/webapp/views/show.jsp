@@ -17,7 +17,7 @@
     </div>
 
     <%--@elvariable id="contractor" type="ru.bach.bank_api.model.WebContractor"--%>
-    <form:form  action="show" modelAttribute="contractor">
+    <form:form  action="/show" modelAttribute="contractor">
         <table>
                 <tr>
                     <td>Наименование</td>
@@ -40,7 +40,7 @@
                 <td>${contractor.getAccountNumber()}</td>
             </tr>
                               </table>
-        <button type="button" onclick="location.href='/edit/${contractor.getNomination()}'">Изменить</button>
+        <button type="button" onclick="location.href='/update/${contractor.getNomination()}'">Изменить</button>
         <button type="button" onclick="location.href='/delete/${contractor.getNomination()}'">Удалить</button>
         <button type="button" onclick="location.href='/home'">Вернуться</button>
     </form:form>

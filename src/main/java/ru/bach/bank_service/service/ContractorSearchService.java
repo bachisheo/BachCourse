@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.dao.ContractorRepository;
 import ru.bach.bank_service.entity.Contractor;
+import ru.bach.bank_service.exception.ContractorNotFoundException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Сервис контрагента, отвечающий за операции поиска по наименованию или сочетанию
@@ -53,10 +56,19 @@ public class ContractorSearchService {
      * @return запись о контрагенте
      */
     public WebContractor findByNomination(String nomination) {
-        Contractor contractor = contractorRepository.findByNomination(nomination);
-        WebContractor webContractor = mapper.map(contractor, WebContractor.class);
-        return webContractor;
+        Optional<Contractor> contractor = contractorRepository.findByNomination(nomination);
+        if(contractor.isPresent())
+            return mapper.map(contractor.get(), WebContractor.class);
+        throw new ContractorNotFoundException("Contractor with nomination " + nomination + "was not find");
     }
+    public ArrayList<WebContractor> finderByNomination(String nomination) {
+        Optional<Contractor> contractor = contractorRepository.findByNomination(nomination);
+        ArrayList<WebContractor> result = new ArrayList<>();
+        if(contractor.isPresent())
+            result.add(mapper.map(contractor.get(), WebContractor.class));
+        return result;
+    }
+
 
     /**
      * Проверка существования записи в базе данных по наименованию

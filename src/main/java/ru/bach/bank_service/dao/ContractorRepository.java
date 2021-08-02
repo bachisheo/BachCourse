@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.bach.bank_service.entity.Contractor;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ContractorRepository extends JpaRepository<Contractor, Long> {
@@ -13,7 +14,7 @@ public interface ContractorRepository extends JpaRepository<Contractor, Long> {
      * @param nomination наименование контрагента
      * @return контрагент
      */
-    Contractor findByNomination (String nomination);
+    Optional<Contractor> findByNomination (String nomination);
 
     /**
      * Поиск контрагента по номеру счета и БИК
@@ -21,7 +22,7 @@ public interface ContractorRepository extends JpaRepository<Contractor, Long> {
      * @param accountNumber номер счета контрагента
      * @return контрагент
      */
-    Contractor findByAccountNumberAndBic (String bic, String accountNumber);
+    Optional<Contractor> findByAccountNumberAndBic (String bic, String accountNumber);
 
     /**
      * Удаление контрагента по ID
