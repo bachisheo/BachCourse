@@ -17,7 +17,13 @@
     <a href="home">
       <img src="/resources/home_logo.jpg" alt="МЕНЮ" width="50" height="50" align="left" />
     </a>
-    ${statusMessage}
+    Команда для запуска приложения:
+
+    ./gradlew bootrun
+
+    Команда для запуска тестов:
+
+    ./gradlew test
   </div>
 </div>
 </body>

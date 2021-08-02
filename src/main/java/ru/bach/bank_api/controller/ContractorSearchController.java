@@ -26,7 +26,9 @@ public class ContractorSearchController {
      *
      * @return модель для отображения страницы
      */
-    @RequestMapping(path = "/contractors")
+    @ApiOperation(value = "Загрузить список контрагентов",
+            notes = "Загружает страницу с таблицей всех контрагентов")
+    @GetMapping(path = "/contractors")
     public ModelAndView getAllContractors() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("contractors");
@@ -40,40 +42,50 @@ public class ContractorSearchController {
      *
      * @return модель для отображения страницы
      */
-    @RequestMapping(path = "/home")
+    @ApiOperation(value = "Загрузить главную страницу")
+    @GetMapping(path = "/home")
     public ModelAndView home() {
         return new ModelAndView("home");
     }
 
     /**
      * Get-запрос загрузки страницы поиска
+     *
      * @return модель для отображения страницы
      */
-    @GetMapping(path ="/searchByName")
-    public ModelAndView openSearchPage(){
+    @ApiOperation(value = "Загрузить форму поиска по имени")
+    @GetMapping(path = "/searchByName")
+    public ModelAndView openSearchPage() {
         WebContractor actor = WebContractor.builder().nomination("Введите наименование").build();
         ModelAndView mav = new ModelAndView("/searchByName");
         mav.addObject("contractor", actor);
         return mav;
     }
+
     /**
      * Post-запрос загрузки результата поиска
+     *
      * @return модель для отображения страницы
      */
-    @PostMapping(path ="/searchByName")
+    @ApiOperation(value = "Получить результат поиска по имени")
+    @PostMapping(path = "/searchByName")
     public ModelAndView search(@ModelAttribute("contractor")
-                                           WebContractor webContractor){
+                               @Parameter(description = "форма контрагента")
+                                       WebContractor webContractor) {
         ModelAndView mav = new ModelAndView("/searchByName");
         List<WebContractor> agentList = contractorSearchService.finderByNomination(webContractor.getNomination());
         mav.addObject("contractorsFromServer", agentList);
         return mav;
     }
+
     /**
      * Get-запрос загрузки страницы поиска
+     *
      * @return модель для отображения страницы
      */
-    @GetMapping(path ="/searchByBic")
-    public ModelAndView openSearchByBikPage(){
+    @ApiOperation(value = "Загрузить форму поиска по БИКу и номеру счета")
+    @GetMapping(path = "/searchByBic")
+    public ModelAndView openSearchByBikPage() {
         WebContractor actor = WebContractor.builder()
                 .bic("Введите БИК банка")
                 .accountNumber("Введите номер счета")
@@ -82,19 +94,24 @@ public class ContractorSearchController {
         mav.addObject("contractor", actor);
         return mav;
     }
+
     /**
      * Post-запрос загрузки результата поиска
+     *
      * @return модель для отображения страницы
      */
-    @PostMapping(path ="/searchByBic")
+    @ApiOperation(value = "Загрузить результат поиска по БИКу и номеру счета")
+    @PostMapping(path = "/searchByBic")
     public ModelAndView searchByBic(@ModelAttribute("contractor")
-                                       WebContractor webContractor){
+                                    @Parameter(description = "форма контрагента")
+                                            WebContractor webContractor) {
         ModelAndView mav = new ModelAndView("/searchByBic");
         List<WebContractor> agentList = contractorSearchService
                 .findByBicAndAccNumber(webContractor.getBic(), webContractor.getAccountNumber());
         mav.addObject("contractorsFromServer", agentList);
         return mav;
     }
+
     /**
      * GET-запрос загрузки страницы просмотра контрагента
      *
