@@ -22,7 +22,7 @@ public interface ContractorRepository extends JpaRepository<Contractor, Long> {
      * @param accountNumber номер счета контрагента
      * @return контрагент
      */
-    Optional<Contractor> findByAccountNumberAndBic (String bic, String accountNumber);
+    Optional<Contractor> findByBicAndAccountNumber (String bic, String accountNumber);
 
     /**
      * Удаление контрагента по ID

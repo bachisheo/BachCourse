@@ -31,12 +31,18 @@ public class ContractorSearchService {
     /**
      * Поиск контрагента по БИКу и номеру счета
      * /@param bic банковский идентификационный код (БИК)
-     * /@param accountNumber номер счета контрагента
+     * /@param accNumber номер счета контрагента
      *
      * @return контрагент
      */
-    //  Contractor getContractorByBicAndAccountNumber(String bic, String accountNumber);
-
+    public ArrayList<WebContractor> findByBicAndAccNumber(String bic, String accNumber) {
+        var contractor = contractorRepository
+                .findByBicAndAccountNumber(bic, accNumber);
+        ArrayList<WebContractor> result = new ArrayList<>();
+        if(contractor.isPresent())
+            result.add(mapper.map(contractor.get(), WebContractor.class));
+        return result;
+    }
     /**
      * Получить список всех контрагентов
      *
@@ -56,7 +62,7 @@ public class ContractorSearchService {
      * @return запись о контрагенте
      */
     public WebContractor findByNomination(String nomination) {
-        Optional<Contractor> contractor = contractorRepository.findByNomination(nomination);
+        var contractor = contractorRepository.findByNomination(nomination);
         if(contractor.isPresent())
             return mapper.map(contractor.get(), WebContractor.class);
         throw new ContractorNotFoundException("Contractor with nomination " + nomination + "was not find");

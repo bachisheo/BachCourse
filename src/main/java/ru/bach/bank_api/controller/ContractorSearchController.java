@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.service.ContractorSearchService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,11 +56,42 @@ public class ContractorSearchController {
         mav.addObject("contractor", actor);
         return mav;
     }
+    /**
+     * Post-запрос загрузки результата поиска
+     * @return модель для отображения страницы
+     */
     @PostMapping(path ="/searchByName")
     public ModelAndView search(@ModelAttribute("contractor")
                                            WebContractor webContractor){
         ModelAndView mav = new ModelAndView("/searchByName");
         List<WebContractor> agentList = contractorSearchService.finderByNomination(webContractor.getNomination());
+        mav.addObject("contractorsFromServer", agentList);
+        return mav;
+    }
+    /**
+     * Get-запрос загрузки страницы поиска
+     * @return модель для отображения страницы
+     */
+    @GetMapping(path ="/searchByBic")
+    public ModelAndView openSearchByBikPage(){
+        WebContractor actor = WebContractor.builder()
+                .bic("Введите БИК банка")
+                .accountNumber("Введите номер счета")
+                .build();
+        ModelAndView mav = new ModelAndView("/searchByBic");
+        mav.addObject("contractor", actor);
+        return mav;
+    }
+    /**
+     * Post-запрос загрузки результата поиска
+     * @return модель для отображения страницы
+     */
+    @PostMapping(path ="/searchByBic")
+    public ModelAndView searchByBic(@ModelAttribute("contractor")
+                                       WebContractor webContractor){
+        ModelAndView mav = new ModelAndView("/searchByBic");
+        List<WebContractor> agentList = contractorSearchService
+                .findByBicAndAccNumber(webContractor.getBic(), webContractor.getAccountNumber());
         mav.addObject("contractorsFromServer", agentList);
         return mav;
     }

@@ -18,12 +18,17 @@
         ПОИСК КОНТРАГЕНТОВ
     </div>
     <%--@elvariable id="contractor" type="ru.bach.bank_api.model.WebContractor"--%>
-    <form:form action="/searchByName" modelAttribute="contractor">
+    <form:form action="/searchByBic" modelAttribute="contractor">
         <table>
             <tr>
-                <td><form:label path="nomination">Наименование</form:label></td>
-                <td><form:input path="nomination" maxlength="20" minlength="1"/></td>
-                <td><form:errors path="nomination" cssClass="error"/></td>
+                <td><form:label path="bic">БИК банка</form:label></td>
+                <td><form:input type="text" id="bic" path="bic" maxlength="9"/></td>
+                <td><form:errors path="bic" cssClass="error"/></td
+            </tr>
+            <tr>
+                <td><form:label path="accountNumber">Номер счета</form:label></td>
+                <td><form:input type="text" id="accountNumber" path="accountNumber" maxlength="20"/></td>
+                <td><form:errors path="accountNumber" cssClass="error"/></td
             </tr>
         </table>
         <button type="submit">Найти</button>
