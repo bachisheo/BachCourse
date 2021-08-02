@@ -1,15 +1,12 @@
 package ru.bach.bank_api.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.bach.bank_api.constraint.InnConstraint;
 import ru.bach.bank_api.constraint.NominationConstraint;
 import ru.bach.bank_api.model.WebContractor;
-import ru.bach.bank_api.service.ContractorSearchService;
+import ru.bach.bank_service.service.ContractorSearchService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Класс, обеспечивающий выполнение правил валидации поля Наименования

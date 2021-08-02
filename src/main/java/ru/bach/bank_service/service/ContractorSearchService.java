@@ -1,4 +1,4 @@
-package ru.bach.bank_api.service;
+package ru.bach.bank_service.service;
 
 
 import ma.glasnost.orika.MapperFacade;
@@ -12,7 +12,6 @@ import ru.bach.bank_service.entity.Contractor;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Сервис контрагента, отвечающий за операции поиска по наименованию или сочетанию
@@ -25,12 +24,6 @@ public class ContractorSearchService {
     private ContractorRepository contractorRepository;
     @Autowired
     private MapperFacade mapper;
-    /**
-     * Поиск контрагента по наименованию
-     * @param nomination наименование
-     * @return контрагент
-     */
-    // Contractor getContractorByNomination(String nomination);
 
     /**
      * Поиск контрагента по БИКу и номеру счета
@@ -40,6 +33,12 @@ public class ContractorSearchService {
      * @return контрагент
      */
     //  Contractor getContractorByBicAndAccountNumber(String bic, String accountNumber);
+
+    /**
+     * Получить список всех контрагентов
+     *
+     * @return список всех контрагентов в БД
+     */
     public List<WebContractor> getAll() {
         List<Contractor> actors = contractorRepository.findAll();
         List<WebContractor> webActors = mapper.mapAsList(actors, WebContractor.class);
@@ -47,13 +46,12 @@ public class ContractorSearchService {
         return webActors;
     }
 
-    public WebContractor getOne() {
-        Contractor c = new Contractor();
-        c.setNomination("contr");
-        WebContractor wc = mapper.map(c, WebContractor.class);
-        return wc;
-    }
-
+    /**
+     * Поиск записи о контрагенте по наименованию
+     *
+     * @param nomination наименование
+     * @return запись о контрагенте
+     */
     public WebContractor findByNomination(String nomination) {
         Contractor contractor = contractorRepository.findByNomination(nomination);
         WebContractor webContractor = mapper.map(contractor, WebContractor.class);
@@ -69,5 +67,4 @@ public class ContractorSearchService {
     public boolean existsByNomination(String nomination) {
         return contractorRepository.existsByNominationIn(Collections.singletonList(nomination));
     }
-
 }

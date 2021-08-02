@@ -29,7 +29,10 @@ public interface ContractorRepository extends JpaRepository<Contractor, Long> {
      */
     void deleteById(long id);
 
-
+    /**
+     * Удалить все записи в базе данных
+     */
+    void deleteAll();
     /**
      * Проверка наличия контрагентов с наименованием из списка
      */

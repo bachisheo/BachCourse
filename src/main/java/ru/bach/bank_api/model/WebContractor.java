@@ -70,4 +70,18 @@ public class WebContractor {
             example = "123")
     @Size(max = 20, min = 1, message = "Наименование содержит от 1 до 20 символов")
     private String nomination;
+
+    @Override
+    public boolean equals(Object o) {
+        WebContractor owc = (WebContractor) o;
+        if(this.nomination.equals(owc.getNomination())
+        && this.inn.equals(owc.getInn())
+        && this.kpp.equals(owc.getKpp())
+        && this.accountNumber.equals(owc.getAccountNumber())
+        && this.bic.equals(owc.getBic()))
+            return true;
+        return false;
+    }
+
 }
+

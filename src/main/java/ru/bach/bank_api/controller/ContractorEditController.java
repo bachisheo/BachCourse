@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.bach.bank_api.model.WebContractor;
 import ru.bach.bank_service.service.ContractorEditService;
-import ru.bach.bank_api.service.ContractorSearchService;
+import ru.bach.bank_service.service.ContractorSearchService;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 /**
  * Контроллер для выполнения запросов на работу с бд
@@ -40,7 +39,7 @@ public class ContractorEditController {
     }
 
     @ApiOperation(value = "Сохранить данные из формы в базу данных",
-            notes = "This method creates a new phone contact")
+            notes = "Сохраняет данные из формы в базу данных")
     @PostMapping(value = "/save")
     public ModelAndView save(@ModelAttribute("contractor")
                              @RequestBody @Valid WebContractor webContractor,
@@ -56,7 +55,12 @@ public class ContractorEditController {
         return mv;
     }
 
-
+    /**
+     * GET-запрос загрузки страницы просмотра контрагента
+     * @param nomination наименование
+     * @return ModelAndView
+     */
+    @ApiOperation(value = "Перенаправить на страницу просмотра контрагента")
     @GetMapping("/show/{nomination}")
     public ModelAndView showForm(@PathVariable("nomination")
                                  @Parameter(description = "Наименование контрагента") String nomination) {
@@ -65,7 +69,12 @@ public class ContractorEditController {
         mv.addObject("contractor", webContractor);
         return mv;
     }
-
+    /**
+     * GET-запрос загрузки страницы с формой редактирования контрагента
+     * @param nomination наименование
+     * @return ModelAndView
+     */
+    @ApiOperation(value = "Перенаправить на страницу с формой для изменения")
     @GetMapping("/edit/{nomination}")
     public ModelAndView showEditActorPage(@PathVariable(name = "nomination") String nomination) {
         ModelAndView mav = new ModelAndView("update");
@@ -74,6 +83,11 @@ public class ContractorEditController {
         return mav;
     }
 
+    /**
+     * Пост запрос на сохранение изменений в записи о контрагенте
+     * @param webContractor форма с изменениями
+     * @return
+     */
     @PostMapping(value = "/update")
     public ModelAndView update(@ModelAttribute("contractor") WebContractor webContractor) {
         ModelAndView mav = new ModelAndView();
